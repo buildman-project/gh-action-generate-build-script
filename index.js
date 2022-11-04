@@ -35,7 +35,8 @@ const generateBuildScript = (paramsObj, buildTag, dockerfile) => {
       return `--build-arg ${key}=${value}`;
     })
     .join(" ");
-  script = `docker build -t ${buildTag} -f ${dockerfile} ${buildargs} .`;
+  const script = `docker build -t ${buildTag} -f ${dockerfile} ${buildargs} .`;
+  return script;
 };
 
 const writeFile = (filename, strContent) => {
