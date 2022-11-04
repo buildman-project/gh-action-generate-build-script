@@ -1,5 +1,5 @@
-name: replace in file
-description: replaces word in file
+name: generate docker build script
+description: generates docker build script
 
 inputs:
   Tag:
@@ -7,12 +7,12 @@ inputs:
   ParamsEnv:
     required: true
     description: string of aws parameters like in a .env file format
+  DockerfileName:
+    required: true
+    description: json string of task definition
   ScriptFileName:
     required: false
     default: ""
-    description: json string of task definition
-  DockerfileName:
-    required: true
     description: json string of task definition
 
 runs:
