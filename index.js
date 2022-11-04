@@ -9,7 +9,7 @@ const params = core.getInput("ParamsEnv");
 const main = () => {
   const paramsObj = generateParametersObject(params);
   const scriptString = generateBuildScript(paramsObj, tag, dockerfile);
-  writeFile(file, scriptString);
+  if (file) writeFile(file, scriptString);
   core.setOutput("script", scriptString);
 };
 
