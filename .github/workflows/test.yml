@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        id: step-with-output
+        with:
+          ScriptFileName: |
+            ../script.json
+          DockerfileName: dockerfile
+          Tag: testTag
+
+          ParamsEnv: |
+            NEXT_PUBLIC_AUTH_BASE_URL = http://localhost:3000/api
+            OTHER_PUBLIC_VARIABLE = "whatever"
+            USE_THE_SAME=@use-previous-value
+
+      - run: |
+          cat ../script.json

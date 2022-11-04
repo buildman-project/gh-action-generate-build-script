@@ -1,1 +1,1 @@
-# gh-action-generate-build-script
+# gh-action-generate-aws-params-file

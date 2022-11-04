@@ -1,0 +1,19 @@
+name: replace in file
+description: replaces word in file
+
+inputs:
+  Tag:
+    description: tag string for docker build
+  ParamsEnv:
+    required: true
+    description: string of aws parameters like in a .env file format
+  ScriptFileName:
+    required: true
+    description: json string of task definition
+  DockerfileName:
+    required: true
+    description: json string of task definition
+
+runs:
+  using: node16
+  main: dist/index.js
