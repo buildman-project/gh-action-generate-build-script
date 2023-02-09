@@ -2,6 +2,9 @@ name: Test
 
 on:
   workflow_dispatch:
+    secrets:
+      BUILD_ARGS:
+        required: false
 
 jobs:
   test:

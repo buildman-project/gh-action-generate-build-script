@@ -2823,17 +2823,19 @@ let fs = __nccwpck_require__(147);
 const tag = core.getInput("Tag");
 const file = core.getInput("ScriptFileName");
 const dockerfile = core.getInput("DockerfileName");
-const params = core.getInput("ParamsEnv");
+const buildArgs = core.getInput("ParamsEnv");
+const secretBuildArgs = process.env.BUILD_ARGS;
 
 const main = () => {
-  const paramsObj = generateParametersObject(params);
-  const scriptString = generateBuildScript(paramsObj, tag, dockerfile);
+  const allBuildArgs = `${buildArgs}\n${secretBuildArgs}`;
+  const buildArgsObj = generateParametersObject(allBuildArgs);
+  const scriptString = generateBuildScript(buildArgsObj, tag, dockerfile);
   if (file) writeFile(file, scriptString);
   core.setOutput("script", scriptString);
 };
 
-const generateParametersObject = (paramsStr) => {
-  const paramLines = paramsStr.split(/\r?\n/);
+const generateParametersObject = (buildArgsStr) => {
+  const paramLines = buildArgsStr.split(/\r?\n/);
   const paramsObject = paramLines
     .filter((line) => line.includes("="))
     .reduce((prev, line) => {
@@ -2845,10 +2847,10 @@ const generateParametersObject = (paramsStr) => {
   return paramsObject;
 };
 
-const generateBuildScript = (paramsObj, buildTag, dockerfile) => {
-  const buildargs = Object.keys(paramsObj)
+const generateBuildScript = (buildArgsObj, buildTag, dockerfile) => {
+  const buildargs = Object.keys(buildArgsObj)
     .map((key) => {
-      value = paramsObj[key];
+      value = buildArgsObj[key];
       return `--build-arg ${key}=${value}`;
     })
     .join(" ");
