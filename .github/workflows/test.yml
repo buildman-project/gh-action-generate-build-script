@@ -23,6 +23,8 @@ jobs:
             NEXT_PUBLIC_AUTH_BASE_URL = http://localhost:3000/api
             OTHER_PUBLIC_VARIABLE = "whatever"
             USE_THE_SAME=@use-previous-value
+        env:
+          BUILD_ARGS: "OTHER=Secret"
 
       - run: |
           cat ../script.json
